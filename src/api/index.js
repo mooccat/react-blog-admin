@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { message } from 'antd';
+
 const baseUrl = '/api/'
 let instance = axios.create({baseURL: '/api/', timeout: 1000});
 instance.interceptors.request.use(
@@ -13,14 +15,18 @@ instance.interceptors.request.use(
 });
 instance.interceptors.response.use(function (response) {
     // console.log(response.headers.token)
-    // if(response.headers.token){
-    //     localStorage.setItem('token',response.headers.token)
-    // }
+     if(response.headers.token){
+         localStorage.setItem('token',response.headers.token)
+     }
     return response;
   }, function (error) {
     console.log(error.response)
     if(error.response&&error.response.status == '401'){
         window.location.hash = 'login'
+    }else {
+        if(error.response.data && error.response.data.errmsg){
+            message.error(error.response.data.errmsg,1)
+        }
     }
     return Promise.reject(error);
   });
@@ -72,5 +78,8 @@ export default {
      },
      login:(params) => {
         return instance.post('/admin/login',params)
+    },
+    register:(params) => {
+        return instance.post('/admin/register',params)
     },
 }

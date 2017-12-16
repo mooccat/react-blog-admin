@@ -35,6 +35,17 @@ class UserStore {
          return res
      }
 
+     @action 
+    async register(params) {
+        let res = await api.register(params)
+        let users = res.data.data
+        localStorage.setItem('token',users.token)
+         runInAction(() => {
+             this.user = users
+         })
+         return res
+     }
+
     @action 
     async addUser(params) {       
         try {

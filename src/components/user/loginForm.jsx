@@ -28,7 +28,7 @@ class NormalLoginForm extends Component {
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please input your email!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="email" />
+            <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="email" />
           )}
         </FormItem>
         <FormItem>

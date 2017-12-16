@@ -9,10 +9,12 @@ import AddArticle from './routes/addArticle'
 import User from './routes/user'
 import Article from './routes/article'
 import EditArticle from './routes/editArticle'
+import Register from './routes/register'
 
 let routes = <div>
     <Switch>
     <Route path="/login" component={Login}/>
+    <Route path="/register" component={Register}/>
     <Route path="/" component={Home}/>
     </Switch>
 </div>
