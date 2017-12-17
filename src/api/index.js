@@ -2,7 +2,7 @@ import axios from 'axios'
 import { message } from 'antd';
 
 const baseUrl = '/api/'
-let instance = axios.create({baseURL: '/api/', timeout: 1000});
+let instance = axios.create({ baseURL: '/api/', timeout: 1000 });
 instance.interceptors.request.use(
     config => {
         if (localStorage.getItem('token')) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
@@ -12,74 +12,74 @@ instance.interceptors.request.use(
     },
     err => {
         return Promise.reject(err);
-});
+    });
 instance.interceptors.response.use(function (response) {
     // console.log(response.headers.token)
-     if(response.headers.token){
-         localStorage.setItem('token',response.headers.token)
-     }
+    if (response.headers.token) {
+        localStorage.setItem('token', response.headers.token)
+    }
     return response;
-  }, function (error) {
+}, function (error) {
     console.log(error.response)
-    if(error.response&&error.response.status == '401'){
+    if (error.response && error.response.status == '401') {
         window.location.hash = 'login'
-    }else {
-        if(error.response.data && error.response.data.errmsg){
-            message.error(error.response.data.errmsg,1)
+    } else {
+        if (error.response.data && error.response.data.errmsg) {
+            message.error(error.response.data.errmsg, 1)
         }
     }
     return Promise.reject(error);
-  });
+});
 export default {
-    getSorts:(params) => {
-       return instance.get('sort',{'params':params})
+    getSorts: (params) => {
+        return instance.get('sort', { 'params': params })
     },
-    addSort:(params) => {
-        return instance.post('sort',params)
+    addSort: (params) => {
+        return instance.post('sort', params)
     },
-    updateSort:(params) => {
-        return instance.put('sort',params)
+    updateSort: (params) => {
+        return instance.put('sort', params)
     },
-    deleteSort:(params) => {
-        return instance.delete('sort',{'params':params})
+    deleteSort: (params) => {
+        return instance.delete('sort', { 'params': params })
     },
-    getTags:(params) => {
-       return instance.get('tag',{'params':params})
+    getTags: (params) => {
+        return instance.get('tag', { 'params': params })
     },
-    addTag:(params) => {
-        return instance.post('tag',params)
+    addTag: (params) => {
+        return instance.post('tag', params)
     },
-    updateTag:(params) => {
-        return instance.put('tag',params)
+    updateTag: (params) => {
+        return instance.put('tag', params)
     },
-    deleteTag:(params) => {
-        return instance.delete('tag',{'params':params})
+    deleteTag: (params) => {
+        return instance.delete('tag', { 'params': params })
     },
-    getArticles:(params) => {
-        return instance.get('article',{'params':params})
-     },
-     addArticle:(params) => {
-         return instance.post('article',params)
-     },
-     updateArticle:(params) => {
-         return instance.put('article',params)
-     },
-     deleteArticle:(params) => {
-         return instance.delete('article',{'params':params})
-     },
-     getUsers:(params) => {
-        return instance.get('user',{'params':params})
-     },
-     deleteUser:(params) => {
-        return instance.delete('/user/delete',{'params':params})
+    getArticles: (params) => {
+        return instance.get('article', { 'params': params })
     },
-    updateUser:(params) => {
-         return instance.put('user/update',params)
-     },
-     login:(params) => {
-        return instance.post('/admin/login',params)
+    addArticle: (params) => {
+        return instance.post('article', params)
     },
-    register:(params) => {
-        return instance.post('/admin/register',params)
+    updateArticle: (params) => {
+        return instance.put('article', params)
+    },
+    deleteArticle: (params) => {
+        return instance.delete('article', { 'params': params })
+    },
+    getUsers: (params) => {
+        return instance.get('user', { 'params': params })
+    },
+    deleteUser: (params) => {
+        return instance.delete('/user/delete', { 'params': params })
+    },
+    updateUser: (params) => {
+        return instance.put('user/update', params)
+    },
+    login: (params) => {
+        return instance.post('/admin/login', params)
+    },
+    register: (params) => {
+        return instance.post('/admin/register', params)
     },
 }
