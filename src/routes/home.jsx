@@ -72,7 +72,7 @@ class Home extends Component {
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2016 Created by Ant UED
+        Fish Blog ©2017 Created by Fish
       </Footer>
     </Layout>
     );

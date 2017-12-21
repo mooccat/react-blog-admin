@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Popconfirm , Select} from 'antd';
+import { Table, Input, Popconfirm, Select, Divider } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 const Option = Select.Option
@@ -36,16 +36,16 @@ class TagList extends Component {
               editable ?
                 <span>
                   <a onClick={() => this.save(record._id)}>保存</a>
-                  <span className="ant-divider" />
+                  <Divider type="vertical" />
                   <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel(record._id)}>
                     <a>取消</a>
                   </Popconfirm>
                 </span>
-                : 
+                :
                 <span>
-                   <a onClick={() => this.edit(record._id)}>编辑</a>
-                   <span className="ant-divider" />
-                   <Popconfirm title="Sure to cancel?" onConfirm={() => this.deleteTag(record._id)}>
+                  <a onClick={() => this.edit(record._id)}>编辑</a>
+                  <Divider type="vertical" />
+                  <Popconfirm title="Sure to cancel?" onConfirm={() => this.deleteTag(record._id)}>
                     <a>删除</a>
                   </Popconfirm>
                 </span>
@@ -103,12 +103,12 @@ class TagList extends Component {
       this.tagStore.updateTags(newData)
     }
   }
-deleteTag = (_id) => {
-  console.log(_id)
-  this.tagStore.deleteTag({'_id':_id})
-}
+  deleteTag = (_id) => {
+    console.log(_id)
+    this.tagStore.deleteTag({ '_id': _id })
+  }
   render() {
-    return <Table bordered dataSource={this.tagStore.tags.slice()} columns={this.columns} rowKey={row => row._id}/>;
+    return <Table bordered dataSource={this.tagStore.tags.slice()} columns={this.columns} rowKey={row => row._id} />;
   }
 }
 
