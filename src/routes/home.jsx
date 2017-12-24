@@ -56,6 +56,8 @@ class Home extends Component {
             {breadcrumbItems}
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 700 }}>
+          <Redirect from='/' to='/article'/>
+
             <Route path="/sort" component={Sort} />
             <Route path="/tag" component={Tag} />
             <Route path="/user" component={User} />
