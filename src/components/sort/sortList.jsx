@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Popconfirm , Select} from 'antd';
+import { Table, Input, Popconfirm, Select, Divider } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 const Option = Select.Option
@@ -17,11 +17,11 @@ const EditableCell = ({ editable, value, onChange }) => (
 const EditableSelect = ({ editable, value, onChange }) => (
   <div>
     {editable
-      ?  <Select  defaultValue={value.toString()} style={{ width: 120 }} onChange={e => onChange(e)}>
-              <Option value="true">显示</Option>
-              <Option value="false">不显示</Option>
-            </Select>
-      : value?"显示":"不显示"
+      ? <Select defaultValue={value.toString()} style={{ width: 120 }} onChange={e => onChange(e)}>
+        <Option value="true">显示</Option>
+        <Option value="false">不显示</Option>
+      </Select>
+      : value ? "显示" : "不显示"
     }
   </div>
 );
@@ -58,11 +58,11 @@ class SortList extends Component {
                     <a>取消</a>
                   </Popconfirm>
                 </span>
-                : 
+                :
                 <span>
-                   <a onClick={() => this.edit(record._id)}>编辑</a>
-                   <span className="ant-divider" />
-                   <Popconfirm title="Sure to cancel?" onConfirm={() => this.deleteSort(record._id)}>
+                  <a onClick={() => this.edit(record._id)}>编辑</a>
+                  <Divider type="vertical" />
+                  <Popconfirm title="Sure to cancel?" onConfirm={() => this.deleteSort(record._id)}>
                     <a>删除</a>
                   </Popconfirm>
                 </span>
@@ -97,9 +97,9 @@ class SortList extends Component {
     const newData = [...this.sortStore.sorts];
     const target = newData.filter(item => _id === item._id)[0];
     if (target) {
-      if(column==='isShow'&&value==='true'){
+      if (column === 'isShow' && value === 'true') {
         value = true
-      }else if(column==='isShow'&&value==='false'){
+      } else if (column === 'isShow' && value === 'false') {
         value = false
       }
       target[column] = value;
@@ -134,12 +134,12 @@ class SortList extends Component {
       this.sortStore.updateSorts(newData)
     }
   }
-deleteSort = (_id) => {
-  console.log(_id)
-  this.sortStore.deleteSort({'_id':_id})
-}
+  deleteSort = (_id) => {
+    console.log(_id)
+    this.sortStore.deleteSort({ '_id': _id })
+  }
   render() {
-    return <Table bordered dataSource={this.sortStore.sorts.slice()} columns={this.columns} rowKey={row => row._id}/>;
+    return <Table bordered dataSource={this.sortStore.sorts.slice()} columns={this.columns} rowKey={row => row._id} />;
   }
 }
 

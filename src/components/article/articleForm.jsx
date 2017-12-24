@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete ,Modal } from 'antd';
 import EditorConvertToMarkdown from './edit'
 import SimpleMDE from 'simplemde'
 import SimpleMDECss from 'simplemde/dist/simplemde.min.css';
+import SortForm from '../sort/sortForm'
 
 import {inject, observer} from 'mobx-react'
 
@@ -64,6 +65,7 @@ class NewArticleForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { visible, confirmLoading, ModalText } = this.sortStore.modal
 
     const formItemLayout = {
       labelCol: {
@@ -121,6 +123,14 @@ class NewArticleForm extends Component {
               }
             </Select>
           )}
+           <Modal title="添加分类"
+            visible={visible}
+            onOk={this.handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={this.handleCancel}
+          >
+          <SortForm ref={this.saveFormRef} {...this.sortStore.fields} onChange={this.handleFormChange}></SortForm>
+        </Modal>
         </FormItem>
         <FormItem
           {...formItemLayout}
