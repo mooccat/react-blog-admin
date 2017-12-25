@@ -43,9 +43,12 @@ class ArticleList extends Component {
       },
     }, {
       title: '内容',
-      dataIndex: 'content',
-      width: '10%',
-      render: (text, record) => { return text },
+      dataIndex: 'summary',
+      width: '40%',
+      render: (text, record) => { 
+        function createMarkup(text) { return {__html: text}; };
+        return <div dangerouslySetInnerHTML={createMarkup(text)} />
+       },
     }, {
       title: 'operation',
       dataIndex: 'operation',

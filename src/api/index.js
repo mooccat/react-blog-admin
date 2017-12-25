@@ -25,7 +25,7 @@ instance.interceptors.response.use(function (response) {
         window.location.hash = 'login'
     } else {
         if (error.response.data && error.response.data.errmsg) {
-            message.error(error.response.data.errmsg, 1)
+            message.error(error.response.data.errmsg.toString(), 1)
         }
     }
     return Promise.reject(error);

@@ -61,7 +61,6 @@ class UserStore {
         } catch (err) {
             runInAction(() => {
                 this.modal.confirmLoading = false
-                message.error(err.response.data.errmsg,1)
             })
         }
     }

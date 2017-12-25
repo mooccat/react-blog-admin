@@ -54,7 +54,7 @@ class ArticleStore {
             });
         } catch (err) {
             runInAction(() => {
-                message.success(err.response.data.errmsg,1)
+                
             })
         }
     }

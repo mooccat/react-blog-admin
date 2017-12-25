@@ -38,7 +38,6 @@ class TagStore {
         } catch (err) {
             runInAction(() => {
                 this.modal.confirmLoading = false
-                message.success(err.response.data.errmsg,1)
             })
         }
     }
