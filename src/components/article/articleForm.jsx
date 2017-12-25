@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete ,Modal } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete ,Modal , DatePicker } from 'antd';
 import EditorConvertToMarkdown from './edit'
 import SimpleMDE from 'simplemde'
 import SimpleMDECss from 'simplemde/dist/simplemde.min.css';
@@ -123,14 +123,6 @@ class NewArticleForm extends Component {
               }
             </Select>
           )}
-           <Modal title="添加分类"
-            visible={visible}
-            onOk={this.handleOk}
-            confirmLoading={confirmLoading}
-            onCancel={this.handleCancel}
-          >
-          <SortForm ref={this.saveFormRef} {...this.sortStore.fields} onChange={this.handleFormChange}></SortForm>
-        </Modal>
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -181,6 +173,17 @@ class NewArticleForm extends Component {
             }],
           })(
             <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="时间"
+          hasFeedback
+        >
+          {getFieldDecorator('creat_at', {
+            
+          })(
+            <DatePicker placeholder="选择时间"/>
           )}
         </FormItem>
         <FormItem

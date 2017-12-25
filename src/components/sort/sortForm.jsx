@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete ,Modal} from 'antd';
+import {inject, observer} from 'mobx-react';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -83,5 +84,55 @@ const SortForm = Form.create({
   },
 })(NewSortForm);
 
+@inject('sortStore')
+@observer
+class SortBtn extends Component {
+  constructor(props) {
+    super(props)
+    this.sortStore = this.props.sortStore
+  }
+  showModal = () => {
+    this.sortStore.showModal()
+  }
+  handleOk = () => {
+    this.form.validateFields(
+      (err) => {
+        if (!err) {
+          this.sortStore.addSort(this.sortStore.fields)
+        }
+      },
+    );
+  }
+  handleCancel = () => {
+    this.sortStore.resetFields()
+    this.sortStore.closeModal()
+  }
+  handleFormChange = (changedFields) => {
+    this.sortStore.modifyFields(changedFields)
+  }
+  componentWillMount() {
+    console.log(this.props)
+  }
+  saveFormRef = (form) => {
+    this.form = form;
+  }
+  render() {
+    const { visible, confirmLoading, ModalText } = this.sortStore.modal
+   
+    return (
+        <div style={{ marginBottom: 16 }}>
+          <Button type="primary" onClick={this.showModal}>添加分类</Button>
+          <Modal title="添加分类"
+            visible={visible}
+            onOk={this.handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={this.handleCancel}
+          >
+          <SortForm ref={this.saveFormRef} {...this.sortStore.fields} onChange={this.handleFormChange}></SortForm>
+        </Modal>
+      </div>
+    );
+  }
+}
 
-export default SortForm;
+export default SortBtn;
