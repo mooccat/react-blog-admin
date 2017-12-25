@@ -4,6 +4,8 @@ import EditorConvertToMarkdown from './edit'
 import SimpleMDE from 'simplemde'
 import SimpleMDECss from 'simplemde/dist/simplemde.min.css';
 import SortForm from '../sort/sortForm'
+import moment from 'moment';
+
 
 import {inject, observer} from 'mobx-react'
 
@@ -181,9 +183,9 @@ class NewArticleForm extends Component {
           hasFeedback
         >
           {getFieldDecorator('creat_at', {
-            
+            valuePropName:'value'
           })(
-            <DatePicker placeholder="选择时间"/>
+            <DatePicker placeholder="选择时间" format="YYYY-MM-DD"/>
           )}
         </FormItem>
         <FormItem
@@ -210,9 +212,15 @@ const ArticleForm = Form.create({
   mapPropsToFields(props) {
     let fields = {}
     for(let key in props){
-      fields[key] = Form.createFormField({
-        value : props[key]
-      })
+      if(key === "creat_at"){
+        fields[key] = Form.createFormField({
+          value : moment(props[key], 'YYYY-MM-DD')
+        })
+      }else{
+        fields[key] = Form.createFormField({
+          value : props[key]
+        })
+      }
     }
     console.log(fields)
     return fields

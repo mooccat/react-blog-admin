@@ -86,7 +86,10 @@ class ArticleStore {
                           this.fields[key].push(article[key][i]._id)
                        }
                    }
-                  }else{
+                  }else if(key === 'creat_at') {
+                    this.fields[key] = article[key].split("T")[0]
+                  }
+                  else{
                       this.fields[key] = article[key]
                   }
               }
