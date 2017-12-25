@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react';
 
 import Nav from '../components/navigator'
 import SortList from '../components/sort/sortList'
-import SortForm from '../components/sort/sortForm'
+import SortBtn from '../components/sort/sortForm'
 
 const FormItem = Form.Item
 
@@ -47,19 +47,9 @@ class Sort extends Component {
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
-          <Button type="primary" onClick={this.showModal}>添加分类</Button>
+          <SortBtn></SortBtn>
         </div>
         <SortList></SortList>
-        <div>
-          <Modal title="添加分类"
-            visible={visible}
-            onOk={this.handleOk}
-            confirmLoading={confirmLoading}
-            onCancel={this.handleCancel}
-          >
-          <SortForm ref={this.saveFormRef} {...this.sortStore.fields} onChange={this.handleFormChange}></SortForm>
-        </Modal>
-      </div>
       </div>
     );
   }

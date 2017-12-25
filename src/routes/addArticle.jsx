@@ -4,6 +4,8 @@ import {inject, observer} from 'mobx-react';
 
 import Nav from '../components/navigator'
 import ArticleForm from '../components/article/articleForm'
+import SortBtn from '../components/sort/sortForm'
+import TagBtn from '../components/tag/tagForm'
 
 
 const FormItem = Form.Item
@@ -25,6 +27,10 @@ class AddArticle extends Component {
   render() {
     return (
       <div style={{ marginTop: 16 }}>
+        <div style={{position:'fixed'}}>
+          <SortBtn></SortBtn>
+          <TagBtn></TagBtn>
+        </div>
         <ArticleForm {...this.articleStore.fields} onChange={this.handleFormChange}></ArticleForm>
       </div>
     );
